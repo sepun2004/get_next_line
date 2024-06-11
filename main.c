@@ -8,8 +8,8 @@ int     main(void)
 
     fd = open("prueba.txt",O_RDONLY);
     line = get_next_line(fd); 
-     printf("line es : %s\n", line);
-     free(line);
+    printf("line es : %s\n", line);
+    free(line);
     // while ((line = get_next_line(fd)) != NULL) 
     // {
     //     printf("line es : %s\n", line);

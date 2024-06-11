@@ -11,6 +11,16 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
+static char *ft_free_nose(char *next, char *temp)
+{
+	char *tmp;
+
+	tmp = ft_strjoin(next, temp);
+	free(next);
+	return (temp);
+}
+
+
 char *the_rest_in_the_new_line(char *next)
 {
 	int i;
@@ -18,23 +28,25 @@ char *the_rest_in_the_new_line(char *next)
 	char *next_line;
 
 	i = 0;
+	j = 0;
 	while(next[i] != '\n' && next[i] != '\0')
 		i++;
-
 	if (next[i] == '\0')
 	{
 		free(next);
-		return (NULL);
+		return NULL;
 	}
-	i++;
-	j = 0;
 	next_line = malloc(sizeof(char) * (ft_strlen(next) - i + 1));
+	if(!next_line)
+		return NULL;
+	i++
 	while (next[i] != '\0')
 	{
 		next_line[j] = next[i];
 		j++;
 		i++;
 	}
+	next_line = '\0';
 	free(next);
 	return (next_line);
 }
@@ -47,7 +59,9 @@ char *make_line(char *next)
 	i = 0;
 	if(next[i] == '\0')
 		return (NULL);
-	i = ft_strlen(next);
+	i = ft_strlen(next); //Warning
+	while(next[i] != '\0' && next[i] != '\n')
+		i++;
 	line = malloc(sizeof(char) * i);
 	if(!line)
 		return (NULL);
@@ -66,8 +80,11 @@ char *read_fd_n(int fd,char *next)
 	int		amount;
 	char	*temp;
 
+	// if (!next)
+    // 	next = malloc(sizeof(char));
+    next = malloc(sizeof(char));
 	if (!next)
-    	next = malloc(sizeof(char));
+		return (NULL);
 	temp = malloc(BUFFER_SIZE + 1);
 	if(!temp)
 		return (NULL);
@@ -82,7 +99,7 @@ char *read_fd_n(int fd,char *next)
 			return (NULL);
 		}
 		temp[amount] = '\0',
-		next  = ft_strjoin(next, temp);
+		next  = ft_free_nose(next, temp);
 	}
 	free(temp);
 	return(next);
@@ -103,6 +120,9 @@ char	*get_next_line(int fd)
 	if(!next)
 		return NULL;
 	final = make_line(next);
+	printf("Final es : %s\n", final);
 	next = the_rest_in_the_new_line(next);
+	printf("Final es : %s\n", next);
+
 	return (final);
 }
