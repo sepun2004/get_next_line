@@ -16,7 +16,7 @@ size_t	ft_strlen(const char *str)
 	int	i;
 
 	if (str)
-		return (NULL);
+		return (0);
 	i = 0;
 	while (str[i] != '\0')
 		i++;
@@ -49,20 +49,64 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 char	*ft_strchr(const char *s, int c)
 {
-	unsigned char	cc;
-	char			*str;
+	int	i;
 
-	if (!str)
-		return (NULL);
-	cc = (unsigned char)c;
-	str = (char *)s;
-	while (*str != cc)
+	i = 0;
+	while (s[i])
 	{
-		if (*str == '\0')
-		{
-			return (NULL);
-		}
-		str++;
+		if (s[i] == (unsigned char)c)
+			return ((char *)&s[i]);
+		i++;
 	}
-	return (str);
+	if (s[i] != (unsigned char)c)
+		return (0);
+	return ((char *)&s[i]);
 }
+
+void	ft_bzero(void *s, size_t n)
+{
+	size_t			i;
+	unsigned char	*s2;
+
+	i = 0;
+	s2 = (unsigned char *)s;
+	while (i < n)
+	{
+		s2[i] = 0;
+		i++;
+	}
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ptr;
+
+	if (count == SIZE_MAX && size == SIZE_MAX)
+		return (NULL);
+	ptr = malloc(count * size);
+	if (ptr == NULL)
+		return (ptr);
+	ft_bzero(ptr, size * count);
+	return (ptr);
+}
+
+
+// char	*ft_strchr(const char *s, int c)
+// {
+// 	unsigned char	cc;
+// 	char			*str;
+
+// 	if (!str)
+// 		return (NULL);
+// 	cc = (unsigned char)c;
+// 	str = (char *)s;
+// 	while (*str != cc && *str != '\0')
+// 	{
+// 		if (*str == '\0')
+// 		{
+// 			return (NULL);
+// 		}
+// 		str++;
+// 	}
+// 	return (str);
+// }

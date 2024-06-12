@@ -11,14 +11,14 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-static char	*ft_free_nose(char *next, char *temp)
-{
-	char	*tmp;
+// static char	*ft_free_nose(char *next, char *temp)
+// {
+// 	char	*tmp;
 
-	tmp = ft_strjoin(next, temp);
-	free(next);
-	return (tmp);
-}
+// 	tmp = ft_strjoin(next, temp);
+// 	free(next);
+// 	return (tmp);
+// }
 
 char	*the_rest_in_the_new_line(char *next)
 {
@@ -50,41 +50,41 @@ char	*the_rest_in_the_new_line(char *next)
 	return (next_line);
 }
 
-char	*make_line(char *next)
+char    *make_line(char *next)
 {
-	char	*line;
-	int	i;
+    char    *line;
+    int    i;
+    int     j;
 
-	i = 0;
-	if (next[i] == '\0')
-		return (NULL);
-	i = ft_strlen(next);
-	while(next[i] != '\0' && next[i] != '\n')
-		i++;
-	line = malloc(sizeof(char) * i);
-	if(!line)
-		return (NULL);
-	i = 0;
-	while(next[i] != '\0' && next[i] != '\n')
-	{
-		line[i] = next[i];
-		i++;
-	}
-	line[i] ='\0';
-	return(line);
+    i = 0;
+    if (next[i] == '\0')
+        return (NULL);
+    while(next[i] != '\0' && next[i] != '\n')
+        i++;
+    if(next[i] == '\n')
+      line = ft_calloc(sizeof(char), i + 2 );
+    else
+      line = ft_calloc(sizeof(char), i + 1 );
+    if(!line)
+        return (NULL);
+    j = 0;
+    while(j <= i)
+    {
+        line[j] = next[j];
+        j++;
+    }
+    //line[j] ='\0';
+    return(line);
 }
+
 
 char *read_fd_n(int fd,char *next)
 {
 	int		amount;
 	char	*temp;
+	char	*aux;
 
-	// if (!next)
-    // 	next = malloc(sizeof(char));
-    next = malloc(sizeof(char));
-	if (!next)
-		return (NULL);
-	temp = malloc(BUFFER_SIZE + 1);
+	temp = ft_calloc(BUFFER_SIZE + 1, 1);
 	if(!temp)
 		return (NULL);
 	amount = 1;
@@ -97,8 +97,10 @@ char *read_fd_n(int fd,char *next)
 			free(next);
 			return (NULL);
 		}
-		temp[amount] = '\0',
-		next  = ft_free_nose(next, temp);
+		temp[amount] = '\0';
+		aux = next;
+		next  = ft_strjoin(next, temp);
+		free(aux);
 	}
 	free(temp);
 	return(next);
@@ -117,11 +119,18 @@ char	*get_next_line(int fd)
 	}
 	next = read_fd_n(fd, next);
 	if(!next)
-		return NULL;
+		return (NULL);
 	final = make_line(next);
-	printf("Final es : %s\n", final);
+	if (!final)
+	{
+		free(next);
+		next = NULL;
+		return (NULL);
+	}
+	
+	// printf("Final es : %s\n", final);
 	next = the_rest_in_the_new_line(next);
-	printf("Final es : %s\n", next);
+	// printf("Final es : %s\n", next);
 
 	return (final);
 }
