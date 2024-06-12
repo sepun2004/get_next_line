@@ -11,35 +11,34 @@
 /* ************************************************************************** */
 #include "get_next_line.h"
 
-static char *ft_free_nose(char *next, char *temp)
+static char	*ft_free_nose(char *next, char *temp)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = ft_strjoin(next, temp);
 	free(next);
-	return (temp);
+	return (tmp);
 }
 
-
-char *the_rest_in_the_new_line(char *next)
+char	*the_rest_in_the_new_line(char *next)
 {
-	int i;
-	int j;
-	char *next_line;
+	char	*next_line;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
-	while(next[i] != '\n' && next[i] != '\0')
+	while (next[i] != '\n' && next[i] != '\0')
 		i++;
 	if (next[i] == '\0')
 	{
 		free(next);
-		return NULL;
+		return (NULL);
 	}
 	next_line = malloc(sizeof(char) * (ft_strlen(next) - i + 1));
-	if(!next_line)
-		return NULL;
-	i++
+	if (!next_line)
+		return (NULL);
+	i++;
 	while (next[i] != '\0')
 	{
 		next_line[j] = next[i];
@@ -51,15 +50,15 @@ char *the_rest_in_the_new_line(char *next)
 	return (next_line);
 }
 
-char *make_line(char *next)
+char	*make_line(char *next)
 {
 	char	*line;
-	int i;
+	int	i;
 
 	i = 0;
-	if(next[i] == '\0')
+	if (next[i] == '\0')
 		return (NULL);
-	i = ft_strlen(next); //Warning
+	i = ft_strlen(next);
 	while(next[i] != '\0' && next[i] != '\n')
 		i++;
 	line = malloc(sizeof(char) * i);
