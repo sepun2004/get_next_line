@@ -20,34 +20,35 @@
 // 	return (tmp);
 // }
 
-char	*the_rest_in_the_new_line(char *next)
-{
-	char	*next_line;
-	int		i;
-	int		j;
 
-	i = 0;
-	j = 0;
-	while (next[i] != '\n' && next[i] != '\0')
-		i++;
-	if (next[i] == '\0')
-	{
-		free(next);
-		return (NULL);
-	}
-	next_line = malloc(sizeof(char) * (ft_strlen(next) - i + 1));
-	if (!next_line)
-		return (NULL);
-	i++;
-	while (next[i] != '\0')
-	{
-		next_line[j] = next[i];
-		j++;
-		i++;
-	}
-	next_line = '\0';
-	free(next);
-	return (next_line);
+char    *the_rest_in_the_new_line(char *next)
+{
+    char    *next_line;
+    int        i;
+    int        j;
+
+    i = 0;
+    j = 0;
+    while (next[i] != '\n' && next[i] != '\0')
+        i++;
+    if (next[i] == '\0')
+    {
+        free(next);
+        return (NULL);
+    }
+    i++;
+    next_line = malloc(sizeof(char) * (strlen(next) - i + 1));
+    if (!next_line)
+        return (NULL);
+    while (next[i] != '\0')
+    {
+        next_line[j] = next[i];
+        j++;
+        i++;
+    }
+    next_line[j] = '\0';
+    free(next);
+    return (next_line);
 }
 
 char    *make_line(char *next)
