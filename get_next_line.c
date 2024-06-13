@@ -37,7 +37,7 @@ char    *the_rest_in_the_new_line(char *next)
         return (NULL);
     }
     i++;
-    next_line = malloc(sizeof(char) * (strlen(next) - i + 1));
+    next_line = ft_calloc(sizeof(char), (ft_strlen(next) - i + 1));
     if (!next_line)
         return (NULL);
     while (next[i] != '\0')
@@ -79,14 +79,14 @@ char    *make_line(char *next)
 }
 
 
-char *read_fd_n(int fd,char *next)
+char *read_fd_n(int fd, char *next)
 {
 	int		amount;
 	char	*temp;
 	char	*aux;
 
 	temp = ft_calloc(BUFFER_SIZE + 1, 1);
-	if(!temp)
+	if (!temp)
 		return (NULL);
 	amount = 1;
 	while(amount > 0 && !ft_strchr(next, '\n'))
@@ -98,9 +98,17 @@ char *read_fd_n(int fd,char *next)
 			free(next);
 			return (NULL);
 		}
+        if (amount == 0)
+            break;
 		temp[amount] = '\0';
 		aux = next;
 		next  = ft_strjoin(next, temp);
+        if (!next)
+        {
+            free(temp);
+			free(next);
+			return (NULL);
+        }
 		free(aux);
 	}
 	free(temp);
@@ -112,12 +120,8 @@ char	*get_next_line(int fd)
 	char		*final;
 	static char	*next;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 /*|| read(fd, 0, 0) < 0*/)
-	{
-		// free(next);
-		// next = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
-	}
 	next = read_fd_n(fd, next);
 	if(!next)
 		return (NULL);

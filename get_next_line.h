@@ -29,13 +29,15 @@
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	ft_bzero(void *s, size_t n);
-// void	*ft_calloc(size_t count, size_t size);
+void	*ft_calloc(size_t count, size_t size);
 size_t	ft_strlen(const char *str);
 
 // get_next_line.c
-char	*get_next_line(int fd);
-char *read_fd(int fd,char *next);
+// static char	*ft_free_nose(char *next, char *temp);
+char    *the_rest_in_the_new_line(char *next);
 char *make_line(char *next);
+char *read_fd(int fd,char *next);
+char	*get_next_line(int fd);
 
     
 #endif
