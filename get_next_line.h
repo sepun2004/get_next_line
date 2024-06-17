@@ -33,7 +33,7 @@ size_t	ft_strlen(const char *str);
 
 // get_next_line.c
 // static char	*ft_free_nose(char *next, char *temp);
-char	the_rest_in_the_new_line(char *next);
+char	*the_rest_in_the_new_line(char *next);
 char	*make_line(char *next);
 char	*read_fd(int fd, char *next);
 char	*get_next_line(int fd);

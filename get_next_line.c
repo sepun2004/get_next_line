@@ -97,7 +97,11 @@ char	*get_next_line(int fd)
 	static char	*next;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	{
+		free (next);
+		next = NULL;
 		return (NULL);
+	}
 	next = read_fd_n(fd, next);
 	if (!next)
 		return (NULL);
