@@ -3,83 +3,68 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sepun <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: sepun <sepun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 15:02:33 by sepun             #+#    #+#             */
-/*   Updated: 2023/11/17 18:21:47 by sepun            ###   ########.fr       */
+/*   Created: 2024/06/17 20:05:27 by sepun             #+#    #+#             */
+/*   Updated: 2024/06/17 20:05:27 by sepun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "get_next_line.h"
 
-// static char	*ft_free_nose(char *next, char *temp)
-// {
-// 	char	*tmp;
-
-// 	tmp = ft_strjoin(next, temp);
-// 	free(next);
-// 	return (tmp);
-// }
-
-
-char    *the_rest_in_the_new_line(char *next)
+char	*the_rest_in_the_new_line(char *next)
 {
-    char    *next_line;
-    int        i;
-    int        j;
+	char	*next_line;
+	int		i;
+	int		j;
 
-    i = 0;
-    j = 0;
-    while (next[i] != '\n' && next[i] != '\0')
-        i++;
-    if (next[i] == '\0')
-    {
-        free(next);
-        return (NULL);
-    }
-    i++;
-    next_line = ft_calloc(sizeof(char), (ft_strlen(next) - i + 1));
-    if (!next_line)
-        return (NULL);
-    while (next[i] != '\0')
-    {
-        next_line[j] = next[i];
-        j++;
-        i++;
-    }
-    next_line[j] = '\0';
-    free(next);
-    return (next_line);
+	i = 0;
+	j = 0;
+	while (next[i] != '\n' && next[i] != '\0')
+		i++;
+	if (next[i] == '\0')
+	{
+		free(next);
+		return (NULL);
+	}
+	i++;
+	next_line = ft_calloc(sizeof(char), (ft_strlen(next) - i + 1));
+	if (!next_line)
+		return (NULL);
+	while (next[i] != '\0')
+		next_line[j++] = next[i++];
+	next_line[j] = '\0';
+	free(next);
+	return (next_line);
 }
 
-char    *make_line(char *next)
+char	*make_line(char *next)
 {
-    char    *line;
-    int    i;
-    int     j;
+	char	*line;
+	int		i;
+	int		j;
 
-    i = 0;
-    if (next[i] == '\0')
-        return (NULL);
-    while(next[i] != '\0' && next[i] != '\n')
-        i++;
-    if(next[i] == '\n')
-      line = ft_calloc(sizeof(char), i + 2 );
-    else
-      line = ft_calloc(sizeof(char), i + 1 );
-    if(!line)
-        return (NULL);
-    j = 0;
-    while(j <= i)
-    {
-        line[j] = next[j];
-        j++;
-    }
-    //line[j] ='\0';
-    return(line);
+	i = 0;
+	if (next[i] == '\0')
+		return (NULL);
+	while (next[i] != '\0' && next[i] != '\n')
+		i++;
+	if (next[i] == '\n')
+		line = ft_calloc(sizeof(char), i + 2);
+	else
+		line = ft_calloc(sizeof(char), i + 1);
+	if (!line)
+		return (NULL);
+	j = 0;
+	while (j <= i)
+	{
+		line[j] = next[j];
+		j++;
+	}
+	return (line);
 }
 
-
-char *read_fd_n(int fd, char *next)
+char	*read_fd_n(int fd, char *next)
 {
 	int		amount;
 	char	*temp;
@@ -89,30 +74,21 @@ char *read_fd_n(int fd, char *next)
 	if (!temp)
 		return (NULL);
 	amount = 1;
-	while(amount > 0 && !ft_strchr(next, '\n'))
+	while (amount > 0 && !ft_strchr(next, '\n'))
 	{
 		amount = read(fd, temp, BUFFER_SIZE);
 		if (amount == -1)
-		{
-			free(temp);
-			free(next);
-			return (NULL);
-		}
-        if (amount == 0)
-            break;
+			return (free(temp), free(next), NULL);
+		if (amount == 0)
+			break ;
 		temp[amount] = '\0';
 		aux = next;
-		next  = ft_strjoin(next, temp);
-        if (!next)
-        {
-            free(temp);
-			free(next);
-			return (NULL);
-        }
+		next = ft_strjoin(next, temp);
+		if (!next)
+			return (free(temp), free(next), NULL);
 		free(aux);
 	}
-	free(temp);
-	return(next);
+	return (free(temp), next);
 }
 
 char	*get_next_line(int fd)
@@ -123,7 +99,7 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	next = read_fd_n(fd, next);
-	if(!next)
+	if (!next)
 		return (NULL);
 	final = make_line(next);
 	if (!final)
@@ -132,10 +108,6 @@ char	*get_next_line(int fd)
 		next = NULL;
 		return (NULL);
 	}
-	
-	// printf("Final es : %s\n", final);
 	next = the_rest_in_the_new_line(next);
-	// printf("Final es : %s\n", next);
-
 	return (final);
 }

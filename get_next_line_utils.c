@@ -1,14 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                               :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sepun <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: sepun <sepun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 15:02:33 by sepun             #+#    #+#             */
-/*   Updated: 2023/11/17 18:21:47 by sepun            ###   ########.fr       */
+/*   Created: 2024/06/17 20:01:46 by sepun             #+#    #+#             */
+/*   Updated: 2024/06/17 20:01:46 by sepun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *str)
@@ -91,7 +92,6 @@ void	*ft_calloc(size_t count, size_t size)
 	ft_bzero(ptr, size * count);
 	return (ptr);
 }
-
 
 // char	*ft_strchr(const char *s, int c)
 // {

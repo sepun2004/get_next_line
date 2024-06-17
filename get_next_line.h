@@ -3,26 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sepun <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: sepun <sepun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 15:02:33 by sepun             #+#    #+#             */
-/*   Updated: 2023/11/17 18:21:47 by sepun            ###   ########.fr       */
+/*   Created: 2024/06/17 20:01:32 by sepun             #+#    #+#             */
+/*   Updated: 2024/06/17 20:01:32 by sepun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
 # endif
 
-#include <stddef.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <fcntl.h>
-#include <stdio.h>
+# include <stddef.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdint.h>
+# include <fcntl.h>
+# include <stdio.h>
 // #include <stdint.h>
 
 // get_next_line_utils
@@ -34,10 +33,9 @@ size_t	ft_strlen(const char *str);
 
 // get_next_line.c
 // static char	*ft_free_nose(char *next, char *temp);
-char    *the_rest_in_the_new_line(char *next);
-char *make_line(char *next);
-char *read_fd(int fd,char *next);
+char	the_rest_in_the_new_line(char *next);
+char	*make_line(char *next);
+char	*read_fd(int fd, char *next);
 char	*get_next_line(int fd);
 
-    
 #endif
