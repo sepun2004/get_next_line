@@ -1,30 +1,24 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sepun <sepun@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/17 20:01:21 by sepun             #+#    #+#             */
-/*   Updated: 2024/06/17 20:07:54 by sepun            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include <stdio.h>
+#include "get_next_line.h" // Asegúrate de que esta declaración coincida con la ubicación de tu archivo header
 
-#include "get_next_line.h"
+int main(void) {
+    int fd;
+    char *line;
+    int i;
 
-int	main(int argc, char **argv)
-{
-	int		fd;
-	int		i;
-	char	*line;
-
-	i = atoi(argv[2]);
-	fd = open (argv[1], O_RDONLY);
-	while (i--)
-	{
-		line = get_next_line(fd);
-		printf("%s", line);
-		free(line);
-	}
-	close(fd);
+    i = 0;
+    fd = open ("Prueba.txt", O_RDONLY);
+    if(fd == -1)
+    {
+        printf("Error");
+        return 0;
+    }
+    
+    while(line = get_next_line(fd))
+    {
+        printf("line es: %s", line);
+        i++;
+        free(line);
+    }
+    close(fd);
 }
