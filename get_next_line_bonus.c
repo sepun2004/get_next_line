@@ -27,10 +27,11 @@ char	*the_rest_in_the_new_line(char *next)
 		free(next);
 		return (NULL);
 	}
-	i++;
+	//i++;
 	next_line = ft_calloc(sizeof(char), (ft_strlen(next) - i + 1));
 	if (!next_line)
 		return (NULL);
+	i++;
 	while (next[i] != '\0')
 		next_line[j++] = next[i++];
 	next_line[j] = '\0';
@@ -45,7 +46,7 @@ char	*make_line(char *next)
 	int		j;
 
 	i = 0;
-	if (next[i] == '\0')
+	if (next == NULL)
 		return (NULL);
 	while (next[i] != '\0' && next[i] != '\n')
 		i++;
@@ -96,22 +97,22 @@ char	*get_next_line(int fd)
 	char		*final;
 	static char	*next[1024];
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (/*fd >= 1024 ||*/ fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
-		free (next);
-		next = NULL;
+		free (next[fd]);
+		///next[fd] = NULL;
 		return (NULL);
 	}
-	next = read_fd_n(fd, next);
-	if (!next)
-		return (NULL);
-	final = make_line(next);
-	if (!final)
-	{
-		free(next);
-		next = NULL;
-		return (NULL);
-	}
-	next = the_rest_in_the_new_line(next);
+	next[fd] = read_fd_n(fd, next[fd]);
+	//  if (!next[fd])
+	// 	return (NULL);
+	final = make_line(next[fd]);
+	// if (!final)
+	// {
+	// 	free(next[fd]);
+	// 	next[fd] = NULL;
+	// 	return (NULL);
+	// }
+	next[fd] = the_rest_in_the_new_line(next[fd]);
 	return (final);
 }
