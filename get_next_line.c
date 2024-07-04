@@ -67,7 +67,7 @@ char	*make_line(char *next)
 char	*read_fd_n(int fd, char *next)
 {
 	int		amount;
-	char	*temp;
+	char	*temp;	
 	char	*aux;
 
 	temp = ft_calloc(BUFFER_SIZE + 1, 1);
@@ -96,7 +96,7 @@ char	*get_next_line(int fd)
 	char		*final;
 	static char	*next;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 	{
 		free (next);
 		next = NULL;
