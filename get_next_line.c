@@ -6,7 +6,7 @@
 /*   By: sepun <sepun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 20:05:27 by sepun             #+#    #+#             */
-/*   Updated: 2024/06/17 20:05:27 by sepun            ###   ########.fr       */
+/*   Updated: 2024/07/05 14:20:39 by sepun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*make_line(char *next)
 char	*read_fd_n(int fd, char *next)
 {
 	int		amount;
-	char	*temp;	
+	char	*temp;
 	char	*aux;
 
 	temp = ft_calloc(BUFFER_SIZE + 1, 1);

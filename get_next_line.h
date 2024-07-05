@@ -22,7 +22,6 @@
 # include <stdint.h>
 # include <fcntl.h>
 # include <stdio.h>
-// #include <stdint.h>
 
 // get_next_line_utils
 char	*ft_strchr(const char *s, int c);

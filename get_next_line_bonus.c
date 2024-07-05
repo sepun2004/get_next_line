@@ -6,11 +6,11 @@
 /*   By: sepun <sepun@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 20:05:27 by sepun             #+#    #+#             */
-/*   Updated: 2024/06/17 20:05:27 by sepun            ###   ########.fr       */
+/*   Updated: 2024/07/05 14:20:59 by sepun            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 char	*the_rest_in_the_new_line(char *next)
 {
